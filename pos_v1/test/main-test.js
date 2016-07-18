@@ -1,7 +1,8 @@
-'use strict';
+'use strict'
 
 describe('pos', () => {
   let inputs;
+  let allItems = loadAllItems();
 
   beforeEach(() => {
     inputs = [
@@ -34,4 +35,38 @@ describe('pos', () => {
 
     expect(console.log).toHaveBeenCalledWith(expectText);
   });
+
+  it("should build cartItems", ()=> {
+    let inputs = [
+      "ITEM000000",
+      "ITEM000003-3"
+    ];
+    const expectCartItems = [
+      {
+        Item: {
+          barcode: 'ITEM000000',
+          name: '可口可乐',
+          unit: '瓶',
+          price: 3.00
+        },
+        count: 1
+      },
+      {
+        Item: {
+          barcode: 'ITEM000003',
+          name: '荔枝',
+          unit: '斤',
+          price: 15.00
+        },
+        count: 3
+      }
+    ];
+
+    let cartItems = buildCartItems(inputs, allItems);
+
+    expect(cartItems).toEqual(expectCartItems);
+
+  });
 });
+
+
